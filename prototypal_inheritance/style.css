@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+div {
+  margin: 2rem;
+  min-width: 50px;
+  border: 5px solid grey;
+  padding: 2rem;
+  color: deepskyblue;
+  font-weight: bold;
+}
