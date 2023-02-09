@@ -1,13 +1,25 @@
-const getData = () => {
-  console.log("Fetching Data...");
-};
+const input = document.querySelector("input");
+const defaultText = document.getElementById("default");
+const debounceText = document.getElementById("debounce");
+const throttleText = document.getElementById("throttle");
 
-function debounceFn(fn, d) {
-  return function () {
-    setTimeout(() => {
-      fn().apply(this, arguments);
-    }, d);
+const updateBydeBounce = debounceFn((text) => {
+  debounceText.textContent = text;
+});
+
+input.addEventListener("input", (e) => {
+  defaultText.textContent = e.target.value;
+  updateBydeBounce(e.target.value);
+});
+
+function debounceFn(callback, delay = 1000) {
+  let timer;
+  console.log(callback);
+  return (args) => {
+    console.log(args);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(args);
+    }, delay);
   };
 }
-
-const delayedData = debounceFn(getData, 500);
