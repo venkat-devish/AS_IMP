@@ -2,24 +2,56 @@ const input = document.querySelector("input");
 const defaultText = document.getElementById("default");
 const debounceText = document.getElementById("debounce");
 const throttleText = document.getElementById("throttle");
+let timer;
 
-const updateBydeBounce = debounceFn((text) => {
-  debounceText.textContent = text;
-});
+const updateByDebounce = debounce((params) => {
+  debounceText.textContent = params;
+}, 1000);
+
+const updateByThrottle = throttle((params) => {
+  throttleText.textContent = params;
+}, 1000);
 
 input.addEventListener("input", (e) => {
   defaultText.textContent = e.target.value;
-  updateBydeBounce(e.target.value);
+  updateByDebounce(e.target.value);
+  updateByThrottle(e.target.value);
 });
 
-function debounceFn(callback, delay = 1000) {
+function debounce(fn, delay = 1000) {
   let timer;
-  console.log(callback);
-  return (args) => {
-    console.log(args);
+  return function (args) {
     clearTimeout(timer);
+
     timer = setTimeout(() => {
-      callback(args);
+      fn(args);
     }, delay);
+  };
+}
+
+function throttle(fn, delay) {
+  let pause = false;
+  let missedArgs;
+
+  const delayedFunction = () => {
+    if (missedArgs === null) {
+      pause = false;
+    } else {
+      fn(missedArgs);
+      missedArgs = null;
+      setTimeout(delayedFunction, delay);
+    }
+  };
+
+  return (args) => {
+    if (pause) {
+      missedArgs = args;
+      return;
+    }
+
+    fn(args);
+    pause = true;
+
+    setTimeout(delayedFunction, delay);
   };
 }
