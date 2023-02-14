@@ -1,10 +1,10 @@
 let user = {
-    name: "Akshay Saini",
+    name: "Venkat",
     address: {
         personal: {
-            city: "Dehradun",
-            state: "Uttrakhand",
-            area: "Majra",
+            city: "Nellore",
+            state: "AP",
+            area: "Ravur",
         },
         office: {
             city: "Hyderabad",
